@@ -1,2 +1,11 @@
 .idea/
 .venv/
+# local .terraform directory
+.terraform/*
+
+# tfstate files
+*.tfstate
+*.tfstate.*
+
+#tf variable files, may include sensitive data
+*.tfvars
