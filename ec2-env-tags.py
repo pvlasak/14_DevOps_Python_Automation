@@ -20,13 +20,13 @@ for reservation in reservations_frankfurt:
         instance_ids_frankfurt.append(instance_id)
 
 
-response = ec2_resource_frankfurt.create_tags(
+response = ec2_client_frankfurt.create_tags(
     Resources=
        instance_ids_frankfurt,
     Tags=[
         {
-            'Key': 'environment',
-            'Value': 'prod'
+            'Key': 'City',
+            'Value': 'Frankfurt'
         },
     ]
 )
@@ -37,13 +37,13 @@ for reservation in reservations_paris:
         instance_ids_paris.append(instance_id)
 
 
-response = ec2_resource_paris.create_tags(
+response = ec2_client_paris.create_tags(
     Resources=
        instance_ids_paris,
     Tags=[
         {
-            'Key': 'environment',
-            'Value': 'dev'
+            'Key': 'City',
+            'Value': 'Paris'
         },
     ]
 )
