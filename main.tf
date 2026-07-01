@@ -134,3 +134,4 @@ output "ec2-public-ip-one" {
 output "ec2-public-ip-two" {
     value = aws_instance.myapp-server-two.public_ip
 }
+
