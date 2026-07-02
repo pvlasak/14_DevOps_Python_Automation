@@ -26,10 +26,6 @@ def search_attached_volumes(list_of_instances: list):
     return prod_instances_and_volumes
 
 
-prod_ec2_instances_as_list = fetch_prod_instances_to_list()
-ec2_volumes_dict = search_attached_volumes(prod_ec2_instances_as_list)
-
-
 def create_volume_snapshots(instances_and_volumes: dict):
     # grabs only the first instance for simplicity
     first_instance = list(instances_and_volumes.keys())[0]
@@ -38,9 +34,15 @@ def create_volume_snapshots(instances_and_volumes: dict):
         new_snapshot = ec2_client.create_snapshot(VolumeId = volume_id)
         print(new_snapshot)
 
+def main():
+    prod_ec2_instances_as_list = fetch_prod_instances_to_list()
+    ec2_volumes_dict = search_attached_volumes(prod_ec2_instances_as_list)
+    schedule.every(20).seconds.do(create_volume_snapshots, ec2_volumes_dict)
 
-schedule.every(20).seconds.do(create_volume_snapshots, ec2_volumes_dict)
+    while True:
+        schedule.run_pending()
 
-while True:
-    schedule.run_pending()
+if __name__ == "__main__":
+    main()
+
 
